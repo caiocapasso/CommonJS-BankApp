@@ -1,9 +1,9 @@
 let Footer = {
   render: async () => {
     let view = `
-        <footer class="footer mt-auto py-3 bg-light">
+        <footer class="footer mt-auto py-3 bg-light pt-5 text-center">
             <div class="container">
-                <span class="text-muted">footer</span>
+                <span class="text-muted">meu pé de laranja lima ©2021</span>
             </div>
         </footer>
       `;
