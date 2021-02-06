@@ -1,13 +1,13 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer"
 
-let Home = {
+let UserDashboard = {
   render: async () => {
     let navBar = await Navbar.render();
     let footer = await Footer.render();
     let view = `
     ${navBar}  
-    <p>Home</p>
+    <p>UserDashboard</p>
     ${footer}
     `;
     return view;
@@ -16,4 +16,4 @@ let Home = {
   },
 };
 
-export default Home;
+export default UserDashboard;
