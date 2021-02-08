@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Api = axios.create({
-    baseURL: 'https://gama-bankline-desbugados.herokuapp.com/'
+    baseURL: 'https://bankline-accenture.herokuapp.com/'
 });
 
 export default Api;

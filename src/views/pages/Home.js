@@ -1,3 +1,5 @@
+import Api from "../../services/api";
+import HeadersDefault from "../../services/headersDefault"
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -17,7 +19,7 @@ let Home = {
       </div>
     </div>
     <div class="col-sm">
-      <form class="card">
+      <form id="search-form" class="card">
         <h2 class="mt-4 text-center">
           Entrar
         </h2>
@@ -51,7 +53,7 @@ let Home = {
               Fica logado
             </label>
           </div>
-          <button type="submit" class="btn btn-primary">Entra!</button>
+          <button id="button-form-login"type="submit" class="btn btn-primary">Entra!</button>
         </div>
       </form>
     </div>
@@ -62,7 +64,27 @@ let Home = {
     `;
     return view;
   },
-  after_render: async () => {},
+  after_render: async () => {
+    const searchForm = document.querySelector("#search-form")
+    searchForm.addEventListener('submit', function (e){
+      e.preventDefault();
+
+      const login = document.querySelector("#emailInput").value;
+      const senha = document.querySelector("#passInput").value
+
+      console.log('login =', login);
+      console.log('senha = ', senha);
+
+        let postData = {
+            login: login,
+            senha: senha
+        }
+        Api.post('', postData, HeadersDefault).then(res => {
+          res.data;
+          alert('login realizado');
+        }).catch(e => console.log(e))
+    })
+  },
 };
 
 export default Home;
