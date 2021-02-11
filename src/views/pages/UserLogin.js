@@ -1,61 +1,74 @@
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import { requestUserLogin } from "../../services/user";
 
 let UserLogin = {
-  render: async () => {
-    let navBar = await Navbar.render();
+  isPrivate: false,
+  render: async (isUserLogged) => {
+    let navBar = await Navbar.render(isUserLogged);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
-    <main id="container" class="min-vh-100">
-    <div class="text-center mt-5">
-    <h1 class="text-white logo-custom">
-    Thunder<i class="fas fa-poo-storm"></i>Bank
-  </h1>
-    </div>
-    <div class="container container-margin p-4">
-        <div class="row justify-content-md-center">
-<div class="col-md-6 p-3">
-             <form id="login-form" enctype="multipart/form-data" method="post" class="card m-3 form-control-sm text-dark">
-                <h2 class="mt-3 text-center">
-                   Acesse sua conta
-                </h2>
-                <div class="m-5">
-                   <div class="mb-2 input-group-sm">
-                      <label for="emailInput" class="form-label">e-mail</label>
-                      <input
-                         type="email"
-                         class="form-control"
-                         id="emailInput"
-                         />
-                   </div>
-                   <div class="mb-2 input-group-sm">
-                      <label for="passInput" class="form-label">senha</label>
-                      <input
-                         type="password"
-                         class="form-control"
-                         id="passInput"
-                         />
-                   </div>
-                   <button type="submit" class="btn btn-warning btn-custom-width text-white">Entrar</button>
-                   <div class="mt-4">
-                      <a href="#/user-recover">Recupere sua senha</a>
-                      <br/>
-                      <a href="#/user-register">Crie sua conta agora mesmo!</a> 
-                   </div>
-                </div>
-             </form>
-             </div>
-          </div>
-       </div>
-    </div>
- </main>
+   ${body}
     ${footer}
     `;
     return view;
   },
   after_render: async () => {
+    var loginForm = document.querySelector("#login-form");
+    loginForm?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const email = e.target.querySelector("#emailInput").value;
+      const senha = e.target.querySelector("#passInput").value;
+      requestUserLogin(email, senha);
+    });
   },
 };
+
+const body = `
+<main id="container" class="min-vh-100">
+<div class="text-center mt-5">
+<h1 class="text-white logo-custom">
+Thunder<i class="fas fa-poo-storm"></i>Bank
+</h1>
+</div>
+<div class="container container-margin p-4">
+    <div class="row justify-content-md-center">
+<div class="col-md-6 p-3">
+         <form id="login-form" class="card m-3 form-control-sm text-dark">
+            <h2 class="mt-3 text-center">
+               Acesse sua conta
+            </h2>
+            <div class="m-5">
+               <div class="mb-2 input-group-sm">
+                  <label for="emailInput" class="form-label">e-mail</label>
+                  <input
+                     type="text"
+                     class="form-control"
+                     id="emailInput"
+                     />
+               </div>
+               <div class="mb-2 input-group-sm">
+                  <label for="passInput" class="form-label">senha</label>
+                  <input
+                     type="password"
+                     class="form-control"
+                     id="passInput"
+                     />
+               </div>
+               <button type="submit" class="btn btn-warning btn-custom-width text-white">Entrar</button>
+               <div class="mt-4">
+                  <a href="#/user-recover">Recupere sua senha</a>
+                  <br/>
+                  <a href="#/user-register">Crie sua conta agora mesmo!</a> 
+               </div>
+            </div>
+         </form>
+         </div>
+      </div>
+   </div>
+</div>
+</main>
+`;
 
 export default UserLogin;

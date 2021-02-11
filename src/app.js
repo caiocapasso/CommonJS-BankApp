@@ -1,4 +1,4 @@
-// Imports
+import { isUserLogged, userLogout } from './services/user'
 import Utils from "./services/utils";
 import Home from "./views/pages/Home";
 import Error404 from "./views/pages/Error404";
@@ -16,7 +16,7 @@ let routes = {
   "/user-login": UserLogin,
   "/user-profile": UserProfile,
   "/user-recover": UserRecover,
-  "/user-register": UserRegister,
+  "/user-register": UserRegister
 };
 
 const router = async () => {
@@ -30,10 +30,20 @@ const router = async () => {
       (request.id ? `/id:${request.id}` : "") +
       (request.verb ? `/${request.verb}` : "");
 
+  if (parseURL === '/user-logout'){
+    userLogout();
+  }
+
 
   let page = routes[parseURL] ? routes[parseURL] : Error404;
 
-  root.innerHTML = await page.render();
+  if (page.isPrivate && !isUserLogged()){
+    window.alert('private access required');
+    window.location.replace('/#');
+    return;
+  }
+
+  root.innerHTML = await page.render(isUserLogged());
   await page.after_render();
 };
 

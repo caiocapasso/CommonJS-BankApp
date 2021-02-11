@@ -1,7 +1,5 @@
-import LogoAccenture from "../../img/logo_accenture.png";
-
 let Navbar = {
-  render: async () => {
+  render: async (isUserLogged) => {
     let view = `
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
@@ -23,27 +21,12 @@ let Navbar = {
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-login">Entrar</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-dashboard">Minha Conta</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-profile">Meu Perfil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-register">Criar Conta</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-recover">Recuperar Conta</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/user-logout">Sair</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#/error">Erro</a>
-              </li>
+              ${ShowLoginButton(isUserLogged)}
+              ${ShowDashboardButton(isUserLogged)}
+              ${ShowUserProfileButton(isUserLogged)}
+              ${ShowUserRegisterButton(isUserLogged)}
+              ${ShowUserRecoverButton(isUserLogged)}
+              ${ShowUserLogoutButton(isUserLogged)}
             </ul>
           </div>
         </div>
@@ -55,6 +38,70 @@ let Navbar = {
   after_render: async () => {
     //
   },
+};
+
+const ShowLoginButton = (isUserLogged) => {
+  if (!isUserLogged) {
+    return `<li class="nav-item">
+  <a class="nav-link" href="#/user-login">Entrar</a>
+  </li>`;
+  }
+  return "";
+};
+
+const ShowDashboardButton = (isUserLogged) => {
+  if (isUserLogged) {
+    return `<li class="nav-item">
+    <a class="nav-link" href="#/user-dashboard">Minha Conta</a>
+    </li>`;
+  }
+
+  return "";
+};
+
+const ShowUserProfileButton = (isUserLogged) => {
+  if (isUserLogged) {
+    return `
+    <li class="nav-item">
+    <a class="nav-link" href="#/user-profile">Meu Perfil</a>
+  </li>
+    `;
+  }
+
+  return "";
+};
+const ShowUserRegisterButton = (isUserLogged) => {
+  if (!isUserLogged) {
+    return `
+    <li class="nav-item">
+    <a class="nav-link" href="#/user-register">Criar Conta</a>
+  </li>
+    `;
+  }
+
+  return "";
+};
+const ShowUserRecoverButton = (isUserLogged) => {
+  if (!isUserLogged) {
+    return `
+    <li class="nav-item">
+    <a class="nav-link" href="#/user-recover">Recuperar Conta</a>
+  </li>
+    `;
+  }
+
+  return "";
+};
+const ShowUserLogoutButton = (isUserLogged) => {
+  if (isUserLogged) {
+    return `
+    <li class="nav-item">
+    <a class="nav-link" href="#/user-logout">Sair</a>
+  </li>
+    `;
+  }
+
+  return "";
 };
 
 export default Navbar;

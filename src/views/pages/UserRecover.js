@@ -1,13 +1,23 @@
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 
 let UserRecover = {
-  render: async () => {
-    let navBar = await Navbar.render();
+  isPrivate: false,
+  render: async (isUserLogged) => {
+    let navBar = await Navbar.render(isUserLogged);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
-    <main id="container" class="min-vh-100">
+    ${body}
+    ${footer}
+    `;
+    return view;
+  },
+  after_render: async () => {},
+};
+
+const body = `
+<main id="container" class="min-vh-100">
     <div class="text-center mt-5">
     <h1 class="text-white logo-custom">
     Thunder<i class="fas fa-poo-storm"></i>Bank
@@ -47,12 +57,6 @@ let UserRecover = {
         </div>
       </div>
     </main>
-    ${footer}
-    `;
-    return view;
-  },
-  after_render: async () => {
-  },
-};
+`;
 
 export default UserRecover;
