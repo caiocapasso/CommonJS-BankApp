@@ -7,6 +7,9 @@ import UserLogin from "./views/pages/UserLogin";
 import UserProfile from "./views/pages/UserProfile";
 import UserRecover from "./views/pages/UserRecover";
 import UserRegister from "./views/pages/UserRegister";
+import UserAccountPlan from './views/pages/UserAccountPlan';
+import UserDeposit from './views/pages/UserDeposit';
+import UserTransfer from './views/pages/UserTransfer';
 
 
 // Routes
@@ -16,7 +19,10 @@ let routes = {
   "/user-login": UserLogin,
   "/user-profile": UserProfile,
   "/user-recover": UserRecover,
-  "/user-register": UserRegister
+  "/user-register": UserRegister,
+  "/user-accountplan": UserAccountPlan,
+  "/user-deposit": UserDeposit,
+  "/user-transfer": UserTransfer
 };
 
 const router = async () => {
