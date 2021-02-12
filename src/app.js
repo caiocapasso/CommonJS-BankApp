@@ -22,7 +22,7 @@ let routes = {
   "/user-register": UserRegister,
   "/user-accountplan": UserAccountPlan,
   "/user-deposit": UserDeposit,
-  "/user-transfer": UserTransfer
+  "/user-transfer": UserTransfer  
 };
 
 const router = async () => {

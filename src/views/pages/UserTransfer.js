@@ -7,7 +7,8 @@ let UserTransfer = {
   render: async (isUserLogged) => {
     let navBar = await Navbar.render(isUserLogged);
     let footer = await Footer.render();
-    let sidebar = await Sidebar.render(isUserLogged);
+    let sidebar = await Sidebar.render();
+    let body = renderBody(sidebar);
     let view = `
         ${navBar} 
         ${body}
@@ -18,10 +19,12 @@ let UserTransfer = {
   after_render: async () => {},
 };
 
-const body = `
+const renderBody = (sidebar) => {
+  return `
 <main id="container" class="min-vh-100">
-
+<p>user transfer</p>
 </main>
 `;
+};
 
 export default UserTransfer;

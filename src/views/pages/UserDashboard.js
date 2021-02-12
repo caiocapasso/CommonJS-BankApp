@@ -8,6 +8,7 @@ let UserDashboard = {
     let navBar = await Navbar.render(isUserLogged);
     let footer = await Footer.render();
     let sidebar = await Sidebar.render();
+    let body = renderBody(sidebar);
     let view = `
     ${navBar} 
     ${body}
@@ -18,7 +19,8 @@ let UserDashboard = {
   after_render: async () => {},
 };
 
-const body = `
+const renderBody = (sidebar) => {
+  return `
 <main id="container" class="min-vh-100">
 <div class="container-fluid">
   <div class="row row-pad">
@@ -87,5 +89,6 @@ const body = `
 </div>
 </main>
 `;
+};
 
 export default UserDashboard;
