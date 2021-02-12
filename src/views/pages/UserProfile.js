@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { getUserData, requestUserUpdate } from "../../services/user";
 
 let UserProfile = {
   isPrivate: true,
@@ -13,7 +14,42 @@ let UserProfile = {
     `;
     return view;
   },
-  after_render: async () => {},
+  after_render: async () => {
+    const userData = getUserData();
+    console.log("userData  = ", userData);
+
+    document.querySelector("#nameInput").value = userData.nome;
+    document.querySelector("#cpfInput").value = userData.cpf;
+    document.querySelector("#telInput").value = userData.tel;
+    document.querySelector("#emailInput").value = userData.login;
+
+
+    var profileForm = document.querySelector("#profile-form");
+    profileForm?.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const cpf = document.querySelector("#cpfInput").value;
+      const nome = document.querySelector("#nameInput").value;
+      const tel = document.querySelector("#telInput").value;
+      const email = document.querySelector("#emailInput").value;
+      const senha = document.querySelector("#passInput").value;
+      requestUserUpdate(cpf, nome, tel, email, senha);
+    });
+
+    //VALIDATE PASSWORDS MATCH
+    const password = document.querySelector("#passInput");
+    const confirm = document.querySelector("#passConfirmInput");
+
+    password.onchange = checkPassOnChange;
+    confirm.onchange = checkPassOnChange;
+
+    function checkPassOnChange() {
+      if (confirm.value === password.value) {
+        confirm.setCustomValidity("");
+      } else {
+        confirm.setCustomValidity("Senhas não conferem");
+      }
+    }
+  },
 };
 
 const body = `
@@ -150,7 +186,7 @@ const body = `
             </div>
             <div class="card-body">
               <div class="container bg-form p-4">
-                <form class="form-control-sm">
+                <form id="profile-form" class="form-control-sm">
                   <div class="row">
                     <div class="col-md-6 mb-2 input-group-sm">
                       <label for="nameInput" class="form-label"
@@ -160,7 +196,6 @@ const body = `
                         type="text"
                         class="form-control"
                         id="nameInput"
-                        value="José da Silva"
                         required
                         disabled
                       />
@@ -171,7 +206,6 @@ const body = `
                         type="text"
                         class="form-control"
                         id="cpfInput"
-                        value="123.456.789-00"
                         required
                         disabled
                       />
@@ -186,26 +220,10 @@ const body = `
                         type="tel"
                         class="form-control"
                         id="telInput"
-                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                        pattern="[0-9]{11}"
                         required
-                        value="(11) 1111-1111"
                       />
                     </div>
-                    <div class="col-md-6 mb-2 input-group-sm">
-                      <label for="telInput" class="form-label"
-                        >celular</label
-                      >
-                      <input
-                        type="tel"
-                        class="form-control"
-                        id="telInput"
-                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                        required
-                        value="(11) 99999-9999"
-                      />
-                    </div>
-                  </div>
-                  <div class="row">
                     <div class="col-md-6 mb-2 input-group-sm">
                       <label for="emailInput" class="form-label"
                         >e-mail</label
@@ -215,106 +233,37 @@ const body = `
                         class="form-control"
                         id="emailInput"
                         required
-                        value="fulano@test.com"
                       />
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 mb-2 input-group-sm">
-                      <label for="enderecoInput" class="form-label"
-                        >endereço</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="enderecoInput"
-                        required
-                        value="Rua das Laranjeiras"
-                      />
-                    </div>
-                    <div class="col-md-2 mb-2 input-group-sm">
-                      <label for="numeroInput" class="form-label"
-                        >número</label
-                      >
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="numberoInput"
-                        required
-                        value="1447"
-                      />
-                    </div>
-                    <div class="col-md-4 mb-2 input-group-sm">
-                      <label for="complementoInput" class="form-label"
-                        >complemento</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="complementoInput"
-                        value="AP 19"
-                      />
-                    </div>
+                  <div class="col-md-6 mb-2 input-group-sm">
+                    <label for="telInput" class="form-label"
+                      >nova senha</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passInput"
+                    />
                   </div>
-                  <div class="row">
-                    <div class="col-md-4 mb-2 input-group-sm">
-                      <label for="bairroInput" class="form-label"
-                        >bairro</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="bairroInput"
-                        required
-                        value="Centro"
-                      />
-                    </div>
-                    <div class="col-md-2 mb-2 input-group-sm">
-                      <label for="cepInput" class="form-label">cep</label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="cepInput"
-                        required
-                        value="011011-100"
-                      />
-                    </div>
-                    <div class="col-md-3 mb-2 input-group-sm">
-                      <label for="cidadeInput" class="form-label"
-                        >cidade</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="cidadeInput"
-                        required
-                        value="São Paulo"
-                      />
-                    </div>
-                    <div class="col-md-3 mb-2 input-group-sm">
-                      <label for="estadoInput" class="form-label"
-                        >estado</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="estadoInput"
-                        required
-                        value="São Paulo"
-                      />
-                    </div>
+                  <div class="col-md-6 mb-2 input-group-sm">
+                    <label for="emailInput" class="form-label"
+                      >confirmar nova senha</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passConfirmInput"
+                    />
                   </div>
+                </div>
                   <div
                     class="row justify-content-around text-center mt-3"
                   >
-                    <div class="col m-2 form-button--e">
-                      <button type="button" class="btn btn-success">
+                    <div class="col m-2 text-start">
+                      <button type="submit" class="btn btn-success">
                         Salvar
-                      </button>
-                    </div>
-                    <div class="col m-2 form-button--s">
-                      <button type="button" class="btn btn-danger">
-                        Cancelar
                       </button>
                     </div>
                   </div>

@@ -2,13 +2,13 @@ const urlBase = "https://bankline-accenture.herokuapp.com/usuario";
 const headers = new Headers({ "Content-Type": "application/json" });
 
 const isUserLogged = () => {
-  console.log("isUserLogged", localStorage.getItem("token") !== null)
-  return localStorage.getItem("token") !== null;
+  return localStorage.getItem("userToken") !== null;
 };
 
 const userLogout = () => {
   console.log('logout');
-  localStorage.removeItem("token");
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userId");
   window.location.replace("/#")
 }
 
@@ -21,13 +21,14 @@ const requestUserLogin = (email, senha) => {
       senha: senha,
     }),
   })
-    .then((resposta) => {
-      console.log('resposta = ', resposta)
-      return resposta.json();
+    .then((response) => {
+      console.log('response = ', response)
+      return response.json();
     })
-    .then((resposta) => {
-      console.log("resposta = ", resposta);
-      localStorage.setItem("token", resposta.token);
+    .then((data) => {
+      console.log("data = ", data);
+      localStorage.setItem("userToken", data.token);
+      localStorage.setItem("userId", data.id);
       window.location.replace("#/user-dashboard");
     })
     .catch((error) => {
@@ -46,16 +47,16 @@ const requestUserRegister = (cpf, nome, tel, email, senha) => {
       cpf: cpf,
       login: email,
       nome: nome,
-      saldo: 1000,
+      //saldo: 1000,
       senha: senha,
       //tel: tel,
     }),
   })
-    .then((resposta) => {
-      return resposta.json();
+    .then((response) => {
+      return response.json();
     })
-    .then((resposta) => {
-      window.alert(resposta + "usuário criado com sucesso. Realize login.");
+    .then((data) => {
+      window.alert(data + "usuário criado com sucesso. Realize login.");
       window.location.replace("#/user-login");
     })
     .catch((error) => {
@@ -67,4 +68,52 @@ const requestUserRegister = (cpf, nome, tel, email, senha) => {
     });
 };
 
-export { requestUserLogin, requestUserRegister, isUserLogged, userLogout };
+const requestUserUpdate = (cpf, nome, tel, email, senha) => {
+  fetch(urlBase, {
+    method: "PUT",
+    headers: headers,
+    body: JSON.stringify({
+      contaTipo: "CORRENTE",
+      cpf: cpf,
+      login: email,
+      nome: nome,
+      //saldo: 1000,
+      senha: senha,
+      //tel: tel,
+    }),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      window.alert(data + "usuário alterado com sucesso.");
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert(
+        error +
+          "houve algum problema na atualização do usuário. Tente novamente mais tarde."
+      );
+    });
+};
+
+
+
+const getUserData = () => {
+  const mockUser = {
+    "contaTipo": "CORRENTE",
+    "cpf": "99999999999",
+    "login": "teste@teste.com",
+    "nome": "teste da silva",
+    "saldo": 9999,
+    "tel": "11999999999"
+  };
+
+  return mockUser;
+
+  // return fetch(`${urlBase}/${localStorage.getItem("userId")}`)
+  //   .then((response) => response.json())
+  //   .then ((data) => data)
+}
+
+export { requestUserLogin, requestUserRegister, requestUserUpdate, isUserLogged, userLogout, getUserData };
