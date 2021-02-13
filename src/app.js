@@ -8,6 +8,7 @@ import UserProfile from "./views/pages/UserProfile";
 import UserRecover from "./views/pages/UserRecover";
 import UserRegister from "./views/pages/UserRegister";
 import UserAccountPlan from './views/pages/UserAccountPlan';
+import UserAccountPlanForm from './views/pages/UserAccountPlanForm';
 import UserDeposit from './views/pages/UserDeposit';
 import UserTransfer from './views/pages/UserTransfer';
 import UserPayment from './views/pages/UserPayment';
@@ -22,6 +23,7 @@ let routes = {
   "/user-recover": UserRecover,
   "/user-register": UserRegister,
   "/user-accountplan": UserAccountPlan,
+  "/user-accountplanform": UserAccountPlanForm,
   "/user-deposit": UserDeposit,
   "/user-transfer": UserTransfer,
   "/user-payment": UserPayment
