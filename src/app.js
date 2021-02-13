@@ -10,6 +10,7 @@ import UserRegister from "./views/pages/UserRegister";
 import UserAccountPlan from './views/pages/UserAccountPlan';
 import UserDeposit from './views/pages/UserDeposit';
 import UserTransfer from './views/pages/UserTransfer';
+import UserPayment from './views/pages/UserPayment';
 
 
 // Routes
@@ -22,7 +23,8 @@ let routes = {
   "/user-register": UserRegister,
   "/user-accountplan": UserAccountPlan,
   "/user-deposit": UserDeposit,
-  "/user-transfer": UserTransfer  
+  "/user-transfer": UserTransfer,
+  "/user-payment": UserPayment
 };
 
 const router = async () => {
