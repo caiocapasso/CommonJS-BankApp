@@ -15,8 +15,7 @@ export const initListener = () => {
           if (resposta) {
             console.log("resposta = ", resposta);
             localStorage.setItem("token", resposta.token);
-            //window.location.replace("/user-dashboard.html");
-            window.location.replace("#/user-dashboard");
+            setTimeout(() => window.location.replace("#/user-dashboard"), 500);
           }
         })
         .catch((error) => {

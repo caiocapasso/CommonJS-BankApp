@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 
@@ -11,19 +10,17 @@ import { initListener } from "../../js/controllers/user-dashboard";
 let UserDashboard = {
   isPrivate: true,
   render: async (isLogado) => {
-    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let sidebar = await Sidebar.render();
     let body = renderBody(sidebar);
     let view = `
-    ${navBar} 
     ${body}
     ${footer}
     `;
     return view;
   },
   after_render: async () => {
-    setTimeout(initListener, 2000);
+    initListener();
   },
 };
 
@@ -45,7 +42,7 @@ const renderBody = (sidebar) => {
                 <div class="card-header">
                 <img src="${IconMoney}" alt="" /> Conta - nº<span id="numero-conta"></span>
               </div>
-                    <div class="card-body">
+                    <div class="card-body" style="min-height:150px">
                         <h5 class="card-title">Saldo disponível</h5>
                         <p
                         class="card-text"
@@ -61,7 +58,7 @@ const renderBody = (sidebar) => {
                     <div class="card-header">
                         <img src="${IconCard}" alt=""> Conta Crédito
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="min-height:150px">
                         <h5 class="card-title">Fatura atual</h5>
                         <p class="card-text" style="font-size: 30px">
                         <strong data-fatura-atual></strong>

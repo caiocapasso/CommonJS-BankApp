@@ -1,7 +1,6 @@
 import IconThunder from "../../img/icon-thunder.svg";
 import IconFlowerWhite from "../../img/icon-flower-white.svg";
 
-
 let Sidebar = {
   render: async () => {
     let view = body;
@@ -9,7 +8,6 @@ let Sidebar = {
   },
   after_render: async () => {},
 };
-
 
 const body = `
 <div class="col-sm-12 col-md-2 sidebar">
@@ -23,7 +21,7 @@ const body = `
     </div>
     <div class="row row-pad">
         <a href="#/user-deposit" class="btn btn-warning btn-action form-control actions-button">
-            <img src="${IconFlowerWhite}" alt=""> Depósitos
+            <img src="${IconFlowerWhite}" alt=""> Depositar
         </a>
     </div>
     <div class="row row-pad">
@@ -33,15 +31,25 @@ const body = `
     </div>
     <div class="row row-pad ">
         <a href="#/user-payment" class="btn btn-warning btn-action form-control actions-button">
-            <img src="${IconFlowerWhite}" alt=""> Pagamentos
+            <img src="${IconFlowerWhite}" alt=""> Pagar
         </a>
     </div>
     <div class="row row-pad ">
         <a href="#/user-transfer" class="btn btn-warning btn-action form-control actions-button">
-            <img src="${IconFlowerWhite}" alt=""> Transferência    
+            <img src="${IconFlowerWhite}" alt=""> Transferir    
         </a>
     </div>
+    <div class="row row-pad ">
+    <a href="#/user-profile" class="btn btn-warning btn-action form-control actions-button">
+        <img src="${IconFlowerWhite}" alt=""> Perfil    
+    </a>
+    </div>
+    <div class="row row-pad ">
+    <a href="#" onclick="sair()" class="btn btn-warning btn-action form-control actions-button">
+        <img src="${IconFlowerWhite}" alt=""> Sair   
+    </a>
+    </div>
 </div>
-`
+`;
 
 export default Sidebar;

@@ -5,12 +5,11 @@ import { tokenService } from "../services/token-service.js";
 import { token } from "../util.js";
 
 export const initListener = () => {
-  console.log("bla")
   const nomeUsuario = document.querySelector("#nome-usuario");
-  nomeUsuario.textContent = tokenService.parseJwt(token).nome;
+  nomeUsuario.textContent = tokenService.parseJwt(token()).nome;
 
   const numeroConta = document.querySelector("#numero-conta");
-  numeroConta.textContent = tokenService.parseJwt(token).conta;
+  numeroConta.textContent = tokenService.parseJwt(token()).conta;
 
   dashboardService.obterSaldo().then((response) => {
     if (response) {

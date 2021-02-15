@@ -1,16 +1,13 @@
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Sidebar from "../components/Sidebar";
 
 let UserAccountPlanForm = {
   isPrivate: true,
   render: async (isLogado) => {
-    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let sidebar = await Sidebar.render();
     let body = renderBody(sidebar);
     let view = `
-        ${navBar} 
         ${body}
         ${footer}
         `;

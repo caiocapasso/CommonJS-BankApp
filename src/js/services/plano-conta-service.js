@@ -4,9 +4,9 @@ const url = baseUrl + "plano-conta/";
 
 export const getPlanosReceita = () => {
   console.log('getPlanosReceita()')
-  if (token) {
+  if (token()) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    headers.append("Authorization", "Bearer " + token);
+    headers.append("Authorization", "Bearer " + token());
 
     return fetch(url + "tipo/1", {
       method: "GET",

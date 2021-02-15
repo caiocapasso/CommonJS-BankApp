@@ -1,29 +1,38 @@
-import { usuarioService } from "../services/usuario-service.js"
+import { usuarioService } from "../services/usuario-service.js";
 
-//FIXME: adaptar para fazer funcionar para editar os dados do usuário com base nos campos do profile-form
-// document.querySelector("#login-form")?.addEventListener("submit", function (e) {
-//     e.preventDefault();
-//     console.log("logar usuario");
-//     const email = document.querySelector("#emailInput").value;
-//     const senha = document.querySelector("#passInput").value;
-  
-//     usuarioService
-//       .logar(email, senha)
-//       .then((resposta) => {
-//         console.log("resposta = ", resposta);
-//         localStorage.setItem("token", resposta.token);
-//         window.location.replace("/user-dashboard.html");
-//       })
-//       .catch((error) => {
-//         alert("Usuário e/ou senha inválido(s)");
-//         console.log(error);
-//       });
-//   });
+export const initListener = () => {
+  document
+  .querySelector("#profile-form")
+  ?.addEventListener("submit", function (e) {
+    e.preventDefault();
+    console.log("editar usuario");
+
+    const usuario = {
+      cpf: document.querySelector("#cpfInput")?.value || null,
+      nome: document.querySelector("#nomeInput")?.value || null,
+      tel: document.querySelector("#telInput")?.value || null,
+      email: document.querySelector("#emailInput")?.value || null,
+      senha: document.querySelector("#passInput")?.value || null,
+    };
+
+    usuarioService
+      .editar(usuario)
+      .then((resposta) => {
+        if (resposta) {
+          console.log(resposta);
+          alert("usuario criado com sucesso! Realize o login");
+          window.location.replace("#/user-login");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("aconteceu um erro. Tente novamente mais tarde");
+      });
+  });
 
 
-const obterDados = () => {
   usuarioService.obterDados().then((response) => {
-    if (response){
+    if (response) {
       console.log("response");
       document.querySelector("#nomeInput").value = response.nome;
       document.querySelector("#cpfInput").value = response.cpf;
@@ -32,7 +41,3 @@ const obterDados = () => {
     }
   });
 };
-
-document.addEventListener("DOMContentLoaded", obterDados, false);
-
-

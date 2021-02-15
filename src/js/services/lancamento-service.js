@@ -3,11 +3,11 @@ import { baseUrl, token } from "../util.js";
 
 const url = baseUrl + "lancamento";
 const salvar = ({ valor, descricao, planoDeConta }) => {
-  if (token) {
+  if (token()) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    headers.append("authorization", "Bearer " + token);
+    headers.append("authorization", "Bearer " + token());
 
-    const jwtDecode = tokenService.parseJwt(token);
+    const jwtDecode = tokenService.parseJwt(token());
 
     return fetch(url, {
       method: "POST",
@@ -37,11 +37,11 @@ const salvar = ({ valor, descricao, planoDeConta }) => {
 };
 
 const obterLancamentos = () => {
-  if (token) {
+  if (token()) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    headers.append("authorization", "Bearer " + token);
+    headers.append("authorization", "Bearer " + token());
     
-    const jwtDecode = tokenService.parseJwt(token);
+    const jwtDecode = tokenService.parseJwt(token());
 
     return fetch(url + "/" + jwtDecode.conta, {
       method: "GET",

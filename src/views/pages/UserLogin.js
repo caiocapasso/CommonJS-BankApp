@@ -15,7 +15,7 @@ let UserLogin = {
     return view;
   },
   after_render: async () => {
-    initListener();
+   initListener();
   },
 };
 

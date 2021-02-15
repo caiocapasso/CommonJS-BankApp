@@ -42,7 +42,33 @@ const criar = ({ email, senha, nome, cpf, tel }) => {
       nome: nome,
       saldo: 1000,
       senha: senha,
-      //tel: tel
+      tel: tel
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(`Erro: ${response.status} - ${response.statusText}`);
+      }
+      return response;
+    })
+    .then((resposta) => {
+      return resposta.json();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const editar = ({ email, senha, nome, cpf, tel }) => {
+  return fetch(url, {
+    method: "PUT",
+    headers: headers,
+    body: JSON.stringify({
+      cpf: cpf,
+      login: email,
+      nome: nome,
+      senha: senha,
+      tel: tel
     }),
   })
     .then((response) => {
@@ -60,10 +86,10 @@ const criar = ({ email, senha, nome, cpf, tel }) => {
 };
 
 const obterDados = () => {
-  if (token) {
+  if (token()) {
     const headers = new Headers({ "Content-Type": "application/json" });
-    headers.append("authorization", "Bearer " + token);
-    const jwtDecode = tokenService.parseJwt(token);
+    headers.append("authorization", "Bearer " + token());
+    const jwtDecode = tokenService.parseJwt(token());
 
     return fetch(url + "/findByid/" + jwtDecode.sub, {
       method: "GET",
@@ -87,5 +113,6 @@ const obterDados = () => {
 export const usuarioService = {
   logar,
   criar,
+  editar,
   obterDados,
 };

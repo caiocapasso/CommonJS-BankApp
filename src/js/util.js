@@ -1,7 +1,9 @@
 //export const baseUrl = 'http://localhost:8080/';
 export const baseUrl = "https://bankline-accenture.herokuapp.com/";
 
-export const token = localStorage.getItem("token");
+export const token = () => {
+  return localStorage.getItem("token");
+};
 
 export const formatarDinheiro = (valor) => {
   return valor
@@ -30,7 +32,6 @@ export const sair = () => {
 };
 
 export const isLogado = () => {
-  console.log("isLogado = ", window.localStorage.getItem("token"));
   return window.localStorage.getItem("token");
 };
 
