@@ -1,4 +1,4 @@
-import { requestUserLogin } from "../../services/user";
+import { initListener } from '../../js/controllers/user-login'
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -8,8 +8,8 @@ import ImgApp from "../../img/app.png";
 
 let Home = {
   isPrivate: false,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
@@ -19,13 +19,7 @@ let Home = {
     return view;
   },
   after_render: async () => {
-    const loginForm = document.querySelector("#login-form");
-    loginForm?.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const login = document.querySelector("#emailInput").value;
-      const senha = document.querySelector("#passInput").value;
-      requestUserLogin(login, senha);
-    });
+    initListener();
   },
 };
 

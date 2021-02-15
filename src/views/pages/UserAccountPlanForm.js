@@ -4,8 +4,8 @@ import Sidebar from "../components/Sidebar";
 
 let UserAccountPlanForm = {
   isPrivate: true,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let sidebar = await Sidebar.render();
     let body = renderBody(sidebar);

@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { requestUserRegister } from "../../services/user";
+import { initListener } from "../../js/controllers/user-register";
 
 let UserRegister = {
   isPrivate: false,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
@@ -15,16 +15,7 @@ let UserRegister = {
     return view;
   },
   after_render: async () => {
-    var loginForm = document.querySelector("#register-form");
-    loginForm?.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const cpf = document.querySelector("#cpfInput").value;
-      const nome = document.querySelector("#nameInput").value;
-      const tel = document.querySelector("#telInput").value;
-      const email = document.querySelector("#emailInput").value;
-      const senha = document.querySelector("#passInput").value;
-      requestUserRegister(cpf, nome, tel, email, senha);
-    });
+    initListener();
 
     //VALIDATE PASSWORDS MATCH
     const password = document.querySelector("#passInput");
@@ -68,12 +59,12 @@ Thunder<i class="fas fa-poo-storm"></i>Bank
             />
           </div>
           <div class="mb-2 input-group-sm">
-            <label for="nameInput" class="form-label">nome</label>
+            <label for="nomeInput" class="form-label">nome</label>
             <input
               name="name"
               type="text"
               class="form-control"
-              id="nameInput"
+              id="nomeInput"
               maxlength="50"
               pattern="[^0-9]*"
               required
@@ -134,9 +125,9 @@ Thunder<i class="fas fa-poo-storm"></i>Bank
           </div>
           <button type="submit" class="btn btn-warning btn-custom-width text-white">Enviar</button>
           <div class="mt-4">
-            <a href="index.html">Já tem uma conta? Entre por aqui</a>
+            <a href="#/user-login">Já tem uma conta? Entre por aqui</a>
             <br/>
-            <a href="user-recover.html">Perdeu sua senha? Recupere agora mesmo</a> 
+            <a href="#/user-recover">Perdeu sua senha? Recupere agora mesmo</a> 
           </div>
         </div>
       </form>

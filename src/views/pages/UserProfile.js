@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { getUserData, requestUserUpdate } from "../../services/user";
+import { getUserData, requestUserUpdate } from "../../js/services/user";
 
 let UserProfile = {
   isPrivate: true,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
@@ -18,7 +18,7 @@ let UserProfile = {
     const userData = getUserData();
     console.log("userData  = ", userData);
 
-    document.querySelector("#nameInput").value = userData.nome;
+    document.querySelector("#nomeInput").value = userData.nome;
     document.querySelector("#cpfInput").value = userData.cpf;
     document.querySelector("#telInput").value = userData.tel;
     document.querySelector("#emailInput").value = userData.login;
@@ -28,7 +28,7 @@ let UserProfile = {
     profileForm?.addEventListener("submit", function (e) {
       e.preventDefault();
       const cpf = document.querySelector("#cpfInput").value;
-      const nome = document.querySelector("#nameInput").value;
+      const nome = document.querySelector("#nomeInput").value;
       const tel = document.querySelector("#telInput").value;
       const email = document.querySelector("#emailInput").value;
       const senha = document.querySelector("#passInput").value;
@@ -189,13 +189,13 @@ const body = `
                 <form id="profile-form" class="form-control-sm">
                   <div class="row">
                     <div class="col-md-6 mb-2 input-group-sm">
-                      <label for="nameInput" class="form-label"
+                      <label for="nomeInput" class="form-label"
                         >nome</label
                       >
                       <input
                         type="text"
                         class="form-control"
-                        id="nameInput"
+                        id="nomeInput"
                         required
                         disabled
                       />

@@ -3,8 +3,8 @@ import Navbar from "../components/Navbar";
 
 let Error404 = {
   isPrivate: false,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let view = `
     ${navBar}
     ${body}

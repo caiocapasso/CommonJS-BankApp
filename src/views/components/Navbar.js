@@ -1,6 +1,6 @@
 let Navbar = {
-  render: async (isUserLogged) => {
-    let view = renderBody(isUserLogged);
+  render: async (isLogado) => {
+    let view = renderBody(isLogado);
     return view;
   },
   after_render: async () => {
@@ -8,7 +8,7 @@ let Navbar = {
   },
 };
 
-const renderBody = (isUserLogged) => {
+const renderBody = (isLogado) => {
   return `
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
@@ -30,12 +30,12 @@ const renderBody = (isUserLogged) => {
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Home</a>
           </li>
-          ${ShowLoginButton(isUserLogged)}
-          ${ShowDashboardButton(isUserLogged)}
-          ${ShowUserProfileButton(isUserLogged)}
-          ${ShowUserRegisterButton(isUserLogged)}
-          ${ShowUserRecoverButton(isUserLogged)}
-          ${ShowUserLogoutButton(isUserLogged)}
+          ${ShowLoginButton(isLogado)}
+          ${ShowDashboardButton(isLogado)}
+          ${ShowUserProfileButton(isLogado)}
+          ${ShowUserRegisterButton(isLogado)}
+          ${ShowUserRecoverButton(isLogado)}
+          ${ShowUserLogoutButton(isLogado)}
         </ul>
       </div>
     </div>
@@ -44,8 +44,8 @@ const renderBody = (isUserLogged) => {
 `;
 };
 
-const ShowLoginButton = (isUserLogged) => {
-  if (!isUserLogged) {
+const ShowLoginButton = (isLogado) => {
+  if (!isLogado) {
     return `<li class="nav-item">
   <a class="nav-link" href="#/user-login">Entrar</a>
   </li>`;
@@ -53,8 +53,8 @@ const ShowLoginButton = (isUserLogged) => {
   return "";
 };
 
-const ShowDashboardButton = (isUserLogged) => {
-  if (isUserLogged) {
+const ShowDashboardButton = (isLogado) => {
+  if (isLogado) {
     return `<li class="nav-item">
     <a class="nav-link" href="#/user-dashboard">Minha Conta</a>
     </li>`;
@@ -63,8 +63,8 @@ const ShowDashboardButton = (isUserLogged) => {
   return "";
 };
 
-const ShowUserProfileButton = (isUserLogged) => {
-  if (isUserLogged) {
+const ShowUserProfileButton = (isLogado) => {
+  if (isLogado) {
     return `
     <li class="nav-item">
     <a class="nav-link" href="#/user-profile">Meu Perfil</a>
@@ -74,8 +74,8 @@ const ShowUserProfileButton = (isUserLogged) => {
 
   return "";
 };
-const ShowUserRegisterButton = (isUserLogged) => {
-  if (!isUserLogged) {
+const ShowUserRegisterButton = (isLogado) => {
+  if (!isLogado) {
     return `
     <li class="nav-item">
     <a class="nav-link" href="#/user-register">Criar Conta</a>
@@ -85,8 +85,8 @@ const ShowUserRegisterButton = (isUserLogged) => {
 
   return "";
 };
-const ShowUserRecoverButton = (isUserLogged) => {
-  if (!isUserLogged) {
+const ShowUserRecoverButton = (isLogado) => {
+  if (!isLogado) {
     return `
     <li class="nav-item">
     <a class="nav-link" href="#/user-recover">Recuperar Conta</a>
@@ -96,11 +96,11 @@ const ShowUserRecoverButton = (isUserLogged) => {
 
   return "";
 };
-const ShowUserLogoutButton = (isUserLogged) => {
-  if (isUserLogged) {
+const ShowUserLogoutButton = (isLogado) => {
+  if (isLogado) {
     return `
     <li class="nav-item">
-    <a class="nav-link" href="#/user-logout">Sair</a>
+    <a class="nav-link" onclick="sair()" href="#">Sair</a>
   </li>
     `;
   }

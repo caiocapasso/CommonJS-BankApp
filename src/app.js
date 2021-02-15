@@ -1,5 +1,6 @@
-import { isUserLogged, userLogout } from './services/user'
-import Utils from "./services/utils";
+//import { isLogado, userLogout } from './js/services/user'
+import { isLogado, sair } from './js/util.js';
+import Utils from "./js/utils";
 import Home from "./views/pages/Home";
 import Error404 from "./views/pages/Error404";
 import UserDashboard from "./views/pages/UserDashboard";
@@ -41,19 +42,19 @@ const router = async () => {
       (request.verb ? `/${request.verb}` : "");
 
   if (parseURL === '/user-logout'){
-    userLogout();
+    sair();
   }
 
 
   let page = routes[parseURL] ? routes[parseURL] : Error404;
 
-  if (page.isPrivate && !isUserLogged()){
+  if (page.isPrivate && !isLogado()){
     window.alert('private access required');
     window.location.replace('/#');
     return;
   }
 
-  root.innerHTML = await page.render(isUserLogged());
+  root.innerHTML = await page.render(isLogado());
   await page.after_render();
 };
 

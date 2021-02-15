@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { requestUserLogin } from "../../services/user";
+import { initListener } from "../../js/controllers/user-login";
 
 let UserLogin = {
   isPrivate: false,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
@@ -15,13 +15,7 @@ let UserLogin = {
     return view;
   },
   after_render: async () => {
-    var loginForm = document.querySelector("#login-form");
-    loginForm?.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const email = e.target.querySelector("#emailInput").value;
-      const senha = e.target.querySelector("#passInput").value;
-      requestUserLogin(email, senha);
-    });
+    initListener();
   },
 };
 

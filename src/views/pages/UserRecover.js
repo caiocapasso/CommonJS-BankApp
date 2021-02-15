@@ -3,8 +3,8 @@ import Footer from "../components/Footer";
 
 let UserRecover = {
   isPrivate: false,
-  render: async (isUserLogged) => {
-    let navBar = await Navbar.render(isUserLogged);
+  render: async (isLogado) => {
+    let navBar = await Navbar.render(isLogado);
     let footer = await Footer.render();
     let view = `
     ${navBar}  
@@ -47,9 +47,9 @@ const body = `
                 Recuperar
               </button>
               <div class="mt-4">
-                <a href="index.html">Já tem uma conta? Entre por aqui</a>
+                <a href="#/user-login">Já tem uma conta? Entre por aqui</a>
                 <br />
-                <a href="user-register.html">Ainda não é cliente? Crie sua conta agora mesmo</a>
+                <a href="#/user-register">Ainda não é cliente? Crie sua conta agora mesmo</a>
               </div>
             </div>
           </form>
